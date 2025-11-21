@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정주형 시니어 놀이 공간 큐레이터</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h2 {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #2d3748;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+        
+        .pain-points {
+            background: #f7fafc;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card ul {
+            list-style: none;
+        }
+        
+        .card li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .card li:last-child {
+            border-bottom: none;
+        }
+        
+        .solution {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .solution .section-title {
+            color: white;
+        }
+        
+        .solution .section-title::after {
+            background: white;
+        }
+        
+        .solution p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid #667eea;
+        }
+        
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+        
+        .service-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .business-model {
+            background: #2d3748;
+            color: white;
+        }
+        
+        .business-model .section-title {
+            color: white;
+        }
+        
+        .business-model .section-title::after {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        }
+        
+        .model-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .model-card {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .model-card h3 {
+            color: #f093fb;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        
+        .mvp-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .mvp-box h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section .section-title {
+            color: white;
+        }
+        
+        .cta-section .section-title::after {
+            background: white;
+        }
+        
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .cta-card {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .cta-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .cta-card p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        
+        .vision {
+            background: #f7fafc;
+            text-align: center;
+        }
+        
+        .vision p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            color: #4a5568;
+        }
+        
+        .partners {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .partner-badge {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .hero h2 {
+                font-size: 1.2em;
+            }
+            
+            .two-column,
+            .services,
+            .model-grid,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 50px 20px;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌟 나이 듦이 더욱 즐거운 공간!</h1>
+            <h2>지역 유휴 공간을 시니어 맞춤형 활동/커뮤니티 공간으로 재탄생시킵니다.<br>
+            단순 복지를 넘어선 <strong>'어른 전용 놀이터'</strong>가 필요합니다.<br>
+            정주형 시니어 놀이 공간 큐레이터가 공간 발굴부터 프로그램 운영까지 책임지고,<br>
+            활력 넘치는 시니어 커뮤니티를 구축합니다.</h2>
+            <a href="#contact" class="cta-button">지금 바로 공간 컨설팅 문의하기</a>
+            <a href="#services" class="cta-button secondary">시니어 맞춤형 프로그램 살펴보기</a>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="section pain-points">
+        <h2 class="section-title">🎯 왜 시니어 놀이 공간이 필요한가요?</h2>
+        <div class="two-column">
+            <div class="card">
+                <h3>👵 시니어 고객의 고민</h3>
+                <ul>
+                    <li>❌ <strong>지루함과 고립:</strong> 은퇴 후 시간은 많지만, 자발적인 참여와 사교 활동이 가능한 수준 높은 공간과 프로그램이 부족합니다.</li>
+                    <li>❌ <strong>단순한 복지 프로그램:</strong> 재미와 성취감을 주는 '놀이'보다는 의무적인 복지 프로그램만 남아있어, 삶의 질 향상 욕구를 충족시키지 못합니다.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🏢 공간 소유주/지자체의 고민</h3>
+                <ul>
+                    <li>❌ <strong>활용되지 못하는 공간:</strong> 지역의 접근성 좋은 유휴 공간은 점점 늘어나지만, 이를 시니어 맞춤형으로 기획하고 운영할 전문 인력이 부재합니다.</li>
+                    <li>❌ <strong>지역 활성화 방안 부족:</strong> 시니어 세대를 위한 실질적이고 지속 가능한 공간 활용 모델이 필요합니다.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section solution">
+        <h2 class="section-title">💡 우리의 해결책</h2>
+        <p>정주형 시니어 놀이 공간 큐레이터의 전문성으로 문제를 해결합니다.<br><br>
+        색채 공간 활용능력 등 <strong>시각화 및 디자인 전문성</strong>을 활용하여 잠재된 공간을 발굴하고,<br>
+        위기 상황 파악 능력으로 <strong>안정적인 운영</strong>을 보장합니다.</p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <h2 class="section-title">🔑 핵심 제공 서비스</h2>
+        <div class="services">
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3>공간 컨설팅 및<br>리모델링</h3>
+                <p>지역 내 유휴 공간 발굴, 색채 공간 활용 디자인 제안, 시니어 활동에 최적화된 리모델링 대행</p>
+                <p style="color: #667eea; font-weight: 600; margin-top: 20px;">→ 유휴 공간의 효율적인 수익화 및 지역 활성화</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>맞춤형 프로그램<br>기획/운영</h3>
+                <p>시니어의 니즈를 반영한 놀이, 취미, 사교 활동 중심의 유료 프로그램 기획 (디지털 아트, 커뮤니티 보드게임, 힐링 컬러링 등)</p>
+                <p style="color: #667eea; font-weight: 600; margin-top: 20px;">→ 자발적 참여와 소속감을 느끼는 활동적인 노년</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <h3>정주형<br>네트워크 활용</h3>
+                <p>확고한 지역 정주 기반(인적 네트워크, 교통 요충지)을 활용하여 사업 초기 리스크를 줄이고, 안정적인 고객 및 강사진 확보</p>
+                <p style="color: #667eea; font-weight: 600; margin-top: 20px;">→ 지속 가능하고 신뢰할 수 있는 서비스</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section class="section business-model">
+        <h2 class="section-title">📈 비즈니스 모델 & 검증된 성과</h2>
+        <p style="text-align: center; font-size: 1.2em; margin-bottom: 40px;">지속 가능한 시니어 놀이 생태계를 구축합니다</p>
+        <div class="model-grid">
+            <div class="model-card">
+                <h3>💼 수익 모델 A (B2B/G)</h3>
+                <p>유휴 공간 컨설팅 및 리모델링 대행 수수료</p>
+            </div>
+            <div class="model-card">
+                <h3>🎯 수익 모델 B (B2C)</h3>
+                <p>시니어 대상 특화 프로그램 참가비</p>
+            </div>
+        </div>
+        <div class="mvp-box">
+            <h3>✅ MVP 검증 완료!</h3>
+            <p><strong>시니어 복합 놀이공간 (어른 전용 놀이터)</strong> 파일럿 운영<br>
+            셀프 인테리어를 통한 초기 투자 최소화</p>
+            <p style="margin-top: 20px; font-size: 1.2em;">📊 <strong>검증 결과:</strong> 초기 시니어 그룹 대상의 높은 유료 전환 의사와 긴 체류 시간 확인!<br>
+            (시장 초기 수용도 입증)</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" id="contact">
+        <h2 class="section-title">🤝 지금, 저희와 함께하세요</h2>
+        <p style="font-size: 1.3em; margin-bottom: 40px;">지역 사회의 가치를 높이고, 시니어 세대에게 새로운 활력을 불어넣는<br>이 특별한 프로젝트에 동참해 주세요.</p>
+        <div class="cta-grid">
+            <div class="cta-card">
+                <h3>✅ 공간 소유주 / 지자체</h3>
+                <p>지역 활성화를 위한 컨설팅을 지금 바로 요청하세요!</p>
+                <a href="#" class="cta-button">데모 요청 / 1:1 상담 예약하기</a>
+            </div>
+            <div class="cta-card">
+                <h3>✅ 시니어 개인 고객</h3>
+                <p>나만을 위한 맞춤형 놀이 공간 프로그램 정보를 받아보세요!</p>
+                <a href="#" class="cta-button">지금 바로 무료 체험 신청하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="section vision">
+        <h2 class="section-title">🗺️ 우리의 비전</h2>
+        <p><strong>정주형 시니어 놀이 공간 큐레이터</strong>는<br>
+        지역의 공간적/인적 자원을 연결하는 중심축이 되어,<br>
+        지역 활성화의 모범 사례로 확장하는 데 기여합니다.</p>
+        <div class="partners">
+            <div class="partner-badge">🤝 지역사회 시니어 클럽</div>
+            <div class="partner-badge">🏢 도시지원센터</div>
+            <div class="partner-badge">🌱 지역 커뮤니티</div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .service-card, .model-card, .cta-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
